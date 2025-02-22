@@ -81,27 +81,27 @@ def transcribe_video_endpoint():
     if 'video' not in request.files:
         return jsonify({"error": "No video file provided"}), 400
 
-    # Save the uploaded video file temporarily
-    video_file = request.files['video']
-    print(f"video_file: {video_file}")
-    video_file.save("uploads/recording.mp4")
-    video_path = os.path.join(UPLOAD_FOLDER, "recording.mp4")  # Consistent file name
+    # Ensure the uploads directory exists
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
-    print(os.path.exists(video_path))
-    print(f"video_path: {video_path}")
-    print(video_file.save(video_path))
+
+    # Save the uploaded video file temporarily
+    video_file = request.files['video']
+    video_path = os.path.join(UPLOAD_FOLDER, "recording.mp4")  # Consistent file name
 
     try:
+        # Save the video file
+        video_file.save(video_path)
+        print(f"Video saved successfully at: {video_path}")
+
         # Transcribe the video
         transcription = transcribe_video(video_path)
-        print(f"transcription: {transcription}")
-    except Exception as e:
-        return jsonify({"error": f"Error transcribing video: {str(e)}"}), 500
-    finally:
-        # Clean up the temporary video file
-        if os.path.exists(video_path):
-            os.remove(video_path)
+        print(f"Transcription: {transcription}")
 
-    # Return the transcription
-    return jsonify({"transcription": transcription})
+        # Return the transcription
+        return jsonify({"transcription": transcription})
+
+    except Exception as e:
+        print(f"Error during transcription: {e}")
+        return jsonify({"error": f"Error transcribing video: {str(e)}"}), 500
+

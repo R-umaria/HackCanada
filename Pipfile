@@ -16,6 +16,8 @@ deepface = "*"
 tf-keras = "*"
 openai-whisper = "*"
 ffmpeg-python = "*"
+speechrecognition = "*"
+moviepy = "==1.0.3"
 
 [dev-packages]
 
