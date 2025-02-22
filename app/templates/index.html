@@ -9,12 +9,14 @@
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto p-8">
         <!-- Title and Logo Section -->
-        <div class="flex items-center mb-8 bg-gray-700 p-4 rounded-lg">
+        <div class="flex items-center mb-4 bg-gray-700 p-4 rounded-lg">
             <!-- Logo -->
             <img src="https://via.placeholder.com/40" alt="Logo" class="mr-4">
             <!-- Title -->
             <h1 class="text-3xl font-bold">Live Camera & Transcription</h1>
         </div>
+        <!-- Welcome Note -->
+        <p class="text-gray-400 mb-8 font-bold">Welcome to our platform! Record your introduction and get AI-powered feedback.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Camera Section -->
@@ -30,7 +32,7 @@
             <div class="bg-gray-800 p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4">Transcription</h2>
                 <textarea id="transcription" class="w-full h-60 p-4 bg-gray-700 rounded resize-none" placeholder="Transcript will appear here..." readonly></textarea>
-                <button id="getFeedback" class="w-full bg-gray-700 py-2 px-4 rounded mt-4 hover:bg-gray-600 flex items-center justify-center">
+                <button id="getFeedback" class="w-full bg-gray-700 py-2 px-4 rounded mt-4 hover:bg-gray-600 border-2 border-gray-500 hover:border-red-500 focus:border-red-500 flex items-center justify-center transition-all">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Google_Gemini_icon.svg" alt="Gemini AI Icon" class="w-6 h-6 mr-2"> Get Feedback
                 </button>                
                 <div id="feedback" class="mt-4 bg-gray-700 p-4 rounded text-white hidden">
@@ -39,7 +41,7 @@
             </div>
         </div>
 
-    
+        <!-- How It Works Section -->
         <div class="mt-12 p-6 bg-gray-800 rounded-lg">
             <h3 class="text-2xl font-semibold mb-4">About us</h3>
             <p class="mb-4">
@@ -67,7 +69,7 @@
         let isRecording = false;
         let chunks = [];
 
-        
+        // Access the user's camera
         navigator.mediaDevices.getUserMedia({ video: true })
             .then((stream) => {
                 liveCamera.srcObject = stream;
@@ -100,45 +102,10 @@
             isRecording = !isRecording;
         });
 
-        // feedback
+        // Show feedback
         getFeedbackButton.addEventListener('click', () => {
             feedbackBox.classList.remove('hidden');
             feedbackBox.textContent = 'Your feedback will appear here based on the analysis of your video.';
-=======
-    <title>Emotion Detection</title>
-</head>
-<body>
-    <h1>Upload a Video for Emotion Analysis</h1>
-    <form id="upload-form" enctype="multipart/form-data">
-        <input type="file" id="video-input" accept="video/*" required>
-        <button type="submit">Upload & Analyze</button>
-    </form>
-    <p id="status"></p>
-    <pre id="results"></pre>
-
-    <script>
-        document.getElementById("upload-form").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            
-            const fileInput = document.getElementById("video-input");
-            if (!fileInput.files.length) {
-                alert("Please select a video file");
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append("video", fileInput.files[0]);
-
-            document.getElementById("status").textContent = "Uploading and analyzing...";
-
-            const response = await fetch("/analyze_video", {
-                method: "POST",
-                body: formData
-            });
-
-            const result = await response.json();
-            document.getElementById("status").textContent = "Analysis complete!";
-            document.getElementById("results").textContent = JSON.stringify(result, null, 2);
         });
     </script>
 </body>
