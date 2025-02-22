@@ -8,40 +8,38 @@
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto p-8">
-        <!-- Title and Logo Section -->
         <div class="flex items-center mb-4 bg-gray-700 p-4 rounded-lg">
-            <!-- Logo -->
             <img src="https://via.placeholder.com/40" alt="Logo" class="mr-4">
-            <!-- Title -->
             <h1 class="text-3xl font-bold">Live Camera & Transcription</h1>
         </div>
-        <!-- Welcome Note with Animation -->
-        <p id="welcomeText" class="text-gray-400 mb-8 font-bold"></p>
+
+        <div id="welcomeContainer" class="mb-8 p-20 mx-auto text-center">
+            <h1 id="welcomeLine1" class="text-gray-400 font-bold text-3xl"></h1>
+            <h2 id="welcomeLine2" class="text-gray-400 font-bold text-xl mt-4"></h2>
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Camera Section -->
             <div class="bg-gray-800 p-6 rounded-lg">
-                <h2 class="text-xl font-semibold mb-4">&#128247; Live Camera</h2>
+                <h2 class="text-xl font-semibold mb-4">📸 Live Camera</h2>
                 <video id="liveCamera" class="bg-black w-full h-60 rounded mb-4" autoplay></video>
                 <button id="startStopRecording" class="w-full bg-gray-700 py-2 px-4 rounded hover:bg-gray-600 border-2 border-gray-500 hover:border-red-500 focus:border-red-500 transition-all">
                     ▶ Start Recording
                 </button>
+                <button id="retryRecording" class="w-full bg-gray-700 py-2 px-4 rounded mt-4 hover:bg-gray-600 border-2 border-gray-500 hover:border-yellow-500 focus:border-yellow-500 flex items-center justify-center transition-all">
+                    🔁 Retry
+                </button>
             </div>
 
-            <!-- Transcription Section -->
             <div class="bg-gray-800 p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4">Transcription</h2>
                 <textarea id="transcription" class="w-full h-60 p-4 bg-gray-700 rounded resize-none" placeholder="Transcript will appear here..." readonly></textarea>
                 <button id="getFeedback" class="w-full bg-gray-700 py-2 px-4 rounded mt-4 hover:bg-gray-600 border-2 border-gray-500 hover:border-red-500 focus:border-red-500 flex items-center justify-center transition-all">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Google_Gemini_icon.svg" alt="Gemini AI Icon" class="w-6 h-6 mr-2"> Get Feedback
-                </button>                
-                <div id="feedback" class="mt-4 bg-gray-700 p-4 rounded text-white hidden">
-                    <!-- Feedback content will appear here -->
-                </div>
+                </button>
+                <div id="feedback" class="mt-4 bg-gray-700 p-4 rounded text-white hidden"></div>
             </div>
         </div>
 
-        <!-- How It Works Section -->
         <div class="mt-12 p-6 bg-gray-800 rounded-lg">
             <h3 class="text-2xl font-semibold mb-4">About us</h3>
             <p class="mb-4">
@@ -52,39 +50,44 @@
                 <li>Get instant AI-powered feedback on your presentation</li>
                 <li>Improve your delivery based on actionable insights</li>
             </ul>
-            <p class="mt-4">
-                Unlike generic advice, our platform provides personalized feedback that reflects real-world expectations, helping you stand out in interviews.
-            </p>
         </div>
     </div>
 
     <script>
         const liveCamera = document.getElementById('liveCamera');
         const startStopButton = document.getElementById('startStopRecording');
+        const retryButton = document.getElementById('retryRecording');
         const transcriptArea = document.getElementById('transcription');
         const getFeedbackButton = document.getElementById('getFeedback');
         const feedbackBox = document.getElementById('feedback');
-        const welcomeText = document.getElementById('welcomeText');
+        const welcomeLine1 = document.getElementById('welcomeLine1');
+        const welcomeLine2 = document.getElementById('welcomeLine2');
 
         let mediaRecorder;
         let isRecording = false;
         let chunks = [];
 
         // Typing animation for welcome message
-        const welcomeMessage = "Welcome to our platform! Record your introduction and get AI-powered feedback.";
-        let charIndex = 0;
+        const welcomeMessage1 = "Welcome to our platform!";
+        const welcomeMessage2 = "Record your introduction and get AI-powered feedback.";
+        let charIndex1 = 0;
+        let charIndex2 = 0;
 
         function typeWelcomeMessage() {
-            if (charIndex < welcomeMessage.length) {
-                welcomeText.textContent += welcomeMessage.charAt(charIndex);
-                charIndex++;
-                setTimeout(typeWelcomeMessage, 50); // Typing speed
+            if (charIndex1 < welcomeMessage1.length) {
+                welcomeLine1.textContent += welcomeMessage1.charAt(charIndex1);
+                charIndex1++;
+                setTimeout(typeWelcomeMessage, 50);
+            } else if (charIndex2 < welcomeMessage2.length) {
+                welcomeLine2.textContent += welcomeMessage2.charAt(charIndex2);
+                charIndex2++;
+                setTimeout(typeWelcomeMessage, 50);
             }
         }
         typeWelcomeMessage();
 
         // Access the user's camera
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+        navigator.mediaDevices.getUserMedia({ video: true })
             .then((stream) => {
                 liveCamera.srcObject = stream;
             })
@@ -100,56 +103,13 @@
                 startStopButton.classList.remove('bg-red-600', 'hover:bg-red-500');
             } else {
                 chunks = [];
-                mediaRecorder = new MediaRecorder(liveCamera.srcObject, { mimeType: 'video/mp4' });
+                mediaRecorder = new MediaRecorder(liveCamera.srcObject);
                 mediaRecorder.ondataavailable = (event) => {
                     chunks.push(event.data);
                 };
-                mediaRecorder.onstop = async () => {
-                    const blob = new Blob(chunks, { type: 'video/mp4' });
-
-                    // Send the recorded video to the backend for transcription and emotion analysis
-                    const formData = new FormData();
-                    formData.append('video', blob, 'recording.mp4');
-
-                    try {
-                        // Transcribe the video
-                        const transcriptionResponse = await fetch('/transcribe_video', {
-                            method: 'POST',
-                            body: formData,
-                        });
-
-                        console.log('Transcription Response:', transcriptionResponse);
-
-                        if (!transcriptionResponse.ok) {
-                            throw new Error('Failed to transcribe video');
-                        }
-
-                        const transcriptionResult = await transcriptionResponse.json();
-                        console.log('Transcription Result:', transcriptionResult);
-
-                        // Display the transcription
-                        transcriptArea.value = transcriptionResult.transcription;
-
-                        // Analyze the video for emotions
-                        const emotionResponse = await fetch('/analyze_video', {
-                            method: 'POST',
-                            body: formData,
-                        });
-
-                        if (!emotionResponse.ok) {
-                            throw new Error('Failed to analyze video');
-                        }
-
-                        const emotionResult = await emotionResponse.json();
-                        console.log('Emotion Analysis Result:', emotionResult);
-
-                        // Display the emotion analysis results
-                        feedbackBox.classList.remove('hidden');
-                        feedbackBox.textContent = `Emotions detected: ${JSON.stringify(emotionResult, null, 2)}`;
-                    } catch (error) {
-                        console.error('Error processing video:', error);
-                        alert('Error processing video. Please try again.');
-                    }
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(chunks, { type: 'video/webm' });
+                    transcriptArea.value = "Transcription will be generated from the video.";
                 };
                 mediaRecorder.start();
                 startStopButton.textContent = '❚❚ Stop Recording';
@@ -158,35 +118,10 @@
             isRecording = !isRecording;
         });
 
-        // Get feedback from Gemini
-        getFeedbackButton.addEventListener('click', async () => {
-            const transcription = transcriptArea.value;
-
-            if (!transcription) {
-                alert('Please record a video and generate a transcription first.');
-                return;
-            }
-
-            try {
-                const response = await fetch('/ask-gemini', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ prompt: transcription }),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to get feedback');
-                }
-
-                const result = await response.json();
-                feedbackBox.classList.remove('hidden');
-                feedbackBox.textContent = `Gemini Feedback: ${result.response}`;
-            } catch (error) {
-                console.error('Error getting feedback:', error);
-                alert('Error getting feedback. Please try again.');
-            }
+        // Retry recording
+        retryButton.addEventListener('click', () => {
+            transcriptArea.value = "";
+            feedbackBox.classList.add('hidden');
         });
     </script>
 </body>
