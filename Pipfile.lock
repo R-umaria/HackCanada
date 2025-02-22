@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "37cc06bb7a07fd5bc8ae737d2bf4b56f62dc4410774a4e1401f2b575fd09fd16"
+            "sha256": "841ff56985f5c97a6baee33f35acc93c9cbf862ebdf617cf824c36fa8f947b3c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -334,6 +334,13 @@
             "markers": "python_version >= '3.8'",
             "version": "==0.12.1"
         },
+        "decorator": {
+            "hashes": [
+                "sha256:41fa54c2a0cc4ba648be4fd43cff00aedf5b9465c9bf18d64325bc225f08f760",
+                "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"
+            ],
+            "version": "==4.4.2"
+        },
         "deepface": {
             "hashes": [
                 "sha256:27043e1aa5df05a060bcfe1743409075c66f6f1de86a592ba0cdac79ac9e7987",
@@ -608,6 +615,27 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==3.10"
+        },
+        "imageio": {
+            "hashes": [
+                "sha256:11efa15b87bc7871b61590326b2d635439acc321cf7f8ce996f812543ce10eed",
+                "sha256:71b57b3669666272c818497aebba2b4c5f20d5b37c81720e5e1a56d59c492996"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==2.37.0"
+        },
+        "imageio-ffmpeg": {
+            "hashes": [
+                "sha256:02fa47c83703c37df6bfe4896aab339013f62bf02c5ebf2dce6da56af04ffc0a",
+                "sha256:196faa79366b4a82f95c0f4053191d2013f4714a715780f0ad2a68ff37483cc2",
+                "sha256:1d47bebd83d2c5fc770720d211855f208af8a596c82d17730aa51e815cdee6dc",
+                "sha256:9d2baaf867088508d4a3458e61eeb30e945c4ad8016025545f66c4b5aaef0a61",
+                "sha256:b1ae3173414b5fc5f538a726c4e48ea97edc0d2cdc11f103afee655c463fa742",
+                "sha256:c7e46fcec401dd990405049d2e2f475e2b397779df2519b544b8aab515195282",
+                "sha256:e2556bed8e005564a9f925bb7afa4002d82770d6b08825078b7697ab88ba1755"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==0.6.0"
         },
         "itsdangerous": {
             "hashes": [
@@ -1021,6 +1049,13 @@
             "markers": "python_version >= '3.9'",
             "version": "==10.6.0"
         },
+        "moviepy": {
+            "hashes": [
+                "sha256:2884e35d1788077db3ff89e763c5ba7bfddbd7ae9108c9bc809e7ba58fa433f5"
+            ],
+            "index": "pypi",
+            "version": "==1.0.3"
+        },
         "mpmath": {
             "hashes": [
                 "sha256:7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f",
@@ -1382,6 +1417,13 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==11.1.0"
+        },
+        "proglog": {
+            "hashes": [
+                "sha256:19d5da037e8c813da480b741e3fa71fb1ac0a5b02bf21c41577c7f327485ec50",
+                "sha256:658c28c9c82e4caeb2f25f488fff9ceace22f8d69b15d0c1c86d64275e4ddab4"
+            ],
+            "version": "==0.1.10"
         },
         "protobuf": {
             "hashes": [
@@ -1866,6 +1908,15 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==2.6"
+        },
+        "speechrecognition": {
+            "hashes": [
+                "sha256:2b5d16a7dce2dbf5f90d9c4d5aefe96325518abdc963059ec16dad9e4f2c09d3",
+                "sha256:c767f8558e111a65e9a56905b04eaec2331f87d5011379381621f47aded6c4fe"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.9'",
+            "version": "==3.14.1"
         },
         "sympy": {
             "hashes": [

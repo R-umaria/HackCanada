@@ -1,26 +1,40 @@
-import whisper
-import ffmpeg
+import moviepy.editor as mp
+import speech_recognition as sr
 import os
 
 def transcribe_video(video_path):
     """
-    Extracts audio from a video and transcribes it using Whisper.
+    Extracts audio from a video and transcribes it using Google Speech Recognition.
     """
     # Define the audio path
-    # audio_path = os.path.splitext(video_path)[0] + ".wav"
-    audio_path = "uploads/video.mp4"
+    audio_path = os.path.join("uploads", "audio.wav")
 
-    # Extract audio using FFmpeg
-    ffmpeg.input(video_path).output(audio_path, format="mp4").run(overwrite_output=True)
+    try:
+        # Load the video
+        video = mp.VideoFileClip(video_path)
 
-    # Load Whisper model (choose "tiny", "base", or "small" for speed)
-    model = whisper.load_model("base")
+        # Extract the audio from the video
+        audio_file = video.audio
+        audio_file.write_audiofile(audio_path)
 
-    # Transcribe audio
-    result = model.transcribe(audio_path)
+        # Initialize recognizer
+        recognizer = sr.Recognizer()
 
-    # Clean up the temporary audio file
-    os.remove(audio_path)
+        # Load the audio file
+        with sr.AudioFile(audio_path) as source:
+            audio_data = recognizer.record(source)
 
-    # Return the transcription
-    return result["text"]
+        # Convert speech to text using Google Speech Recognition
+        text = recognizer.recognize_google(audio_data)
+
+        # Clean up the temporary audio file
+        # if os.path.exists(audio_path):
+        #     os.remove(audio_path)
+
+        # Return the transcription
+        return text
+
+    except Exception as e:
+        # Handle errors (e.g., no speech detected, API issues)
+        print(f"Error transcribing video: {e}")
+        return None
