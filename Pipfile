@@ -7,6 +7,13 @@ name = "pypi"
 flask = "*"
 python-dotenv = "*"
 google-genai = "*"
+mediapipe = "*"
+opencv-python = "*"
+numpy = "*"
+tensorflow = "*"
+keras = "*"
+deepface = "*"
+tf-keras = "*"
 
 [dev-packages]
 
