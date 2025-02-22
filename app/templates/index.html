@@ -3,6 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Camera & Transcription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-8">
+        <!-- Title and Logo Section -->
+        <div class="flex items-center mb-8 bg-gray-700 p-4 rounded-lg">
+            <!-- Logo -->
+            <img src="https://via.placeholder.com/40" alt="Logo" class="mr-4">
+            <!-- Title -->
+            <h1 class="text-3xl font-bold">Live Camera & Transcription</h1>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Camera Section -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4">&#128247; Live Camera</h2>
+                <video id="liveCamera" class="bg-black w-full h-60 rounded mb-4" autoplay></video>
+                <button id="startStopRecording" class="w-full bg-gray-700 py-2 px-4 rounded hover:bg-gray-600 border-2 border-gray-500 hover:border-red-500 focus:border-red-500 transition-all">
+                    ▶ Start Recording
+                </button>
+            </div>
+
+            <!-- Transcription Section -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4">Transcription</h2>
+                <textarea id="transcription" class="w-full h-60 p-4 bg-gray-700 rounded resize-none" placeholder="Transcript will appear here..." readonly></textarea>
+                <button id="getFeedback" class="w-full bg-gray-700 py-2 px-4 rounded mt-4 hover:bg-gray-600 flex items-center justify-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Google_Gemini_icon.svg" alt="Gemini AI Icon" class="w-6 h-6 mr-2"> Get Feedback
+                </button>                
+                <div id="feedback" class="mt-4 bg-gray-700 p-4 rounded text-white hidden">
+                    <!-- Feedback content will appear here -->
+                </div>
+            </div>
+        </div>
+
+    
+        <div class="mt-12 p-6 bg-gray-800 rounded-lg">
+            <h3 class="text-2xl font-semibold mb-4">About us</h3>
+            <p class="mb-4">
+                We help you make the best impression possible with employers. Upload a video of your self-introduction and receive genuine, unbiased feedback that helps you improve.
+            </p>
+            <ul class="list-disc pl-6 space-y-2">
+                <li>Record your introduction using our easy-to-use interface</li>
+                <li>Get instant AI-powered feedback on your presentation</li>
+                <li>Improve your delivery based on actionable insights</li>
+            </ul>
+            <p class="mt-4">
+                Unlike generic advice, our platform provides personalized feedback that reflects real-world expectations, helping you stand out in interviews.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const liveCamera = document.getElementById('liveCamera');
+        const startStopButton = document.getElementById('startStopRecording');
+        const transcriptArea = document.getElementById('transcription');
+        const getFeedbackButton = document.getElementById('getFeedback');
+        const feedbackBox = document.getElementById('feedback');
+
+        let mediaRecorder;
+        let isRecording = false;
+        let chunks = [];
+
+        
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                liveCamera.srcObject = stream;
+            })
+            .catch((error) => {
+                console.error('Error accessing camera:', error);
+            });
+
+        // Start/Stop recording
+        startStopButton.addEventListener('click', () => {
+            if (isRecording) {
+                mediaRecorder.stop();
+                startStopButton.textContent = '▶ Start Recording';
+                startStopButton.classList.remove('bg-red-600', 'hover:bg-red-500'); // Remove red color when not recording
+            } else {
+                chunks = [];
+                mediaRecorder = new MediaRecorder(liveCamera.srcObject);
+                mediaRecorder.ondataavailable = (event) => {
+                    chunks.push(event.data);
+                };
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(chunks, { type: 'video/webm' });
+                    const transcript = "Transcription will be generated from the video.";
+                    transcriptArea.value = transcript;
+                };
+                mediaRecorder.start();
+                startStopButton.textContent = '❚❚ Stop Recording';
+                startStopButton.classList.add('bg-red-600', 'hover:bg-red-500'); // Add red color when recording
+            }
+            isRecording = !isRecording;
+        });
+
+        // feedback
+        getFeedbackButton.addEventListener('click', () => {
+            feedbackBox.classList.remove('hidden');
+            feedbackBox.textContent = 'Your feedback will appear here based on the analysis of your video.';
+=======
     <title>Emotion Detection</title>
 </head>
 <body>
