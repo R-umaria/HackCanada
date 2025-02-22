@@ -15,8 +15,8 @@
             <!-- Title -->
             <h1 class="text-3xl font-bold">Live Camera & Transcription</h1>
         </div>
-        <!-- Welcome Note -->
-        <p class="text-gray-400 mb-8 font-bold">Welcome to our platform! Record your introduction and get AI-powered feedback.</p>
+        <!-- Welcome Note with Animation -->
+        <p id="welcomeText" class="text-gray-400 mb-8 font-bold"></p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Camera Section -->
@@ -64,10 +64,24 @@
         const transcriptArea = document.getElementById('transcription');
         const getFeedbackButton = document.getElementById('getFeedback');
         const feedbackBox = document.getElementById('feedback');
+        const welcomeText = document.getElementById('welcomeText');
 
         let mediaRecorder;
         let isRecording = false;
         let chunks = [];
+
+        // Typing animation for welcome message
+        const welcomeMessage = "Welcome to our platform! Record your introduction and get AI-powered feedback.";
+        let charIndex = 0;
+
+        function typeWelcomeMessage() {
+            if (charIndex < welcomeMessage.length) {
+                welcomeText.textContent += welcomeMessage.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWelcomeMessage, 50); // Typing speed
+            }
+        }
+        typeWelcomeMessage();
 
         // Access the user's camera
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -83,7 +97,7 @@
             if (isRecording) {
                 mediaRecorder.stop();
                 startStopButton.textContent = '▶ Start Recording';
-                startStopButton.classList.remove('bg-red-600', 'hover:bg-red-500'); // Remove red color when not recording
+                startStopButton.classList.remove('bg-red-600', 'hover:bg-red-500');
             } else {
                 chunks = [];
                 mediaRecorder = new MediaRecorder(liveCamera.srcObject, { mimeType: 'video/mp4' });
@@ -139,7 +153,7 @@
                 };
                 mediaRecorder.start();
                 startStopButton.textContent = '❚❚ Stop Recording';
-                startStopButton.classList.add('bg-red-600', 'hover:bg-red-500'); // Add red color when recording
+                startStopButton.classList.add('bg-red-600', 'hover:bg-red-500');
             }
             isRecording = !isRecording;
         });
