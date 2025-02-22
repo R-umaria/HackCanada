@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Camera & Transcription</title>
+    <title>Mock Mate</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto p-8">
         <div class="flex items-center mb-4 bg-gray-700 p-4 rounded-lg">
-            <img src="https://via.placeholder.com/40" alt="Logo" class="mr-4">
-            <h1 class="text-3xl font-bold">Live Camera & Transcription</h1>
+            <!-- <img src="images/logo.png" alt="Logo" style="width: 100px; height: 100px;" class="mr-4"> -->
+            <h1 class="text-3xl font-bold">Mate Mock</h1>
         </div>
 
         <div id="welcomeContainer" class="mb-8 p-20 mx-auto text-center">
@@ -34,7 +34,7 @@
                 <h2 class="text-xl font-semibold mb-4">Transcription</h2>
                 <textarea id="transcription" class="w-full h-60 p-4 bg-gray-700 rounded resize-none" placeholder="Transcript will appear here..." readonly></textarea>
                 <button id="getFeedback" class="w-full bg-gray-700 py-2 px-4 rounded mt-4 hover:bg-gray-600 border-2 border-gray-500 hover:border-red-500 focus:border-red-500 flex items-center justify-center transition-all">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Google_Gemini_icon.svg" alt="Gemini AI Icon" class="w-6 h-6 mr-2"> Get Feedback
+                    <img src="https://registry.npmmirror.com/@lobehub/icons-static-png/1.24.0/files/dark/gemini-color.png" alt="Gemini AI Icon" class="w-6 h-6 mr-2"> Get Feedback
                 </button>
                 <div id="feedback" class="mt-4 bg-gray-700 p-4 rounded text-white hidden"></div>
             </div>
@@ -117,6 +117,11 @@
             }
             isRecording = !isRecording;
         });
+        // Show feedback on button click
+        getFeedbackButton.addEventListener('click', () => {
+            feedbackBox.classList.remove('hidden');
+            feedbackBox.textContent = "Here’s your feedback! 🎯 (Simulated feedback for now)";
+        });
 
         // Retry recording
         retryButton.addEventListener('click', () => {
