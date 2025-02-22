@@ -84,7 +84,7 @@
         typeWelcomeMessage();
 
         // Access the user's camera
-        navigator.mediaDevices.getUserMedia({ video: true })
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then((stream) => {
                 liveCamera.srcObject = stream;
             })
@@ -100,14 +100,56 @@
                 startStopButton.classList.remove('bg-red-600', 'hover:bg-red-500');
             } else {
                 chunks = [];
-                mediaRecorder = new MediaRecorder(liveCamera.srcObject);
+                mediaRecorder = new MediaRecorder(liveCamera.srcObject, { mimeType: 'video/mp4' });
                 mediaRecorder.ondataavailable = (event) => {
                     chunks.push(event.data);
                 };
-                mediaRecorder.onstop = () => {
-                    const blob = new Blob(chunks, { type: 'video/webm' });
-                    const transcript = "Transcription will be generated from the video.";
-                    transcriptArea.value = transcript;
+                mediaRecorder.onstop = async () => {
+                    const blob = new Blob(chunks, { type: 'video/mp4' });
+
+                    // Send the recorded video to the backend for transcription and emotion analysis
+                    const formData = new FormData();
+                    formData.append('video', blob, 'recording.mp4');
+
+                    try {
+                        // Transcribe the video
+                        const transcriptionResponse = await fetch('/transcribe_video', {
+                            method: 'POST',
+                            body: formData,
+                        });
+
+                        console.log('Transcription Response:', transcriptionResponse);
+
+                        if (!transcriptionResponse.ok) {
+                            throw new Error('Failed to transcribe video');
+                        }
+
+                        const transcriptionResult = await transcriptionResponse.json();
+                        console.log('Transcription Result:', transcriptionResult);
+
+                        // Display the transcription
+                        transcriptArea.value = transcriptionResult.transcription;
+
+                        // Analyze the video for emotions
+                        const emotionResponse = await fetch('/analyze_video', {
+                            method: 'POST',
+                            body: formData,
+                        });
+
+                        if (!emotionResponse.ok) {
+                            throw new Error('Failed to analyze video');
+                        }
+
+                        const emotionResult = await emotionResponse.json();
+                        console.log('Emotion Analysis Result:', emotionResult);
+
+                        // Display the emotion analysis results
+                        feedbackBox.classList.remove('hidden');
+                        feedbackBox.textContent = `Emotions detected: ${JSON.stringify(emotionResult, null, 2)}`;
+                    } catch (error) {
+                        console.error('Error processing video:', error);
+                        alert('Error processing video. Please try again.');
+                    }
                 };
                 mediaRecorder.start();
                 startStopButton.textContent = '❚❚ Stop Recording';
@@ -116,10 +158,35 @@
             isRecording = !isRecording;
         });
 
-        // Show feedback
-        getFeedbackButton.addEventListener('click', () => {
-            feedbackBox.classList.remove('hidden');
-            feedbackBox.textContent = 'Your feedback will appear here based on the analysis of your video.';
+        // Get feedback from Gemini
+        getFeedbackButton.addEventListener('click', async () => {
+            const transcription = transcriptArea.value;
+
+            if (!transcription) {
+                alert('Please record a video and generate a transcription first.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/ask-gemini', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt: transcription }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to get feedback');
+                }
+
+                const result = await response.json();
+                feedbackBox.classList.remove('hidden');
+                feedbackBox.textContent = `Gemini Feedback: ${result.response}`;
+            } catch (error) {
+                console.error('Error getting feedback:', error);
+                alert('Error getting feedback. Please try again.');
+            }
         });
     </script>
 </body>
