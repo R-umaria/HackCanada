@@ -7,6 +7,16 @@ This project is designed to empower individuals who are preparing for their firs
 
 ## How it works:
 
+# AI-Powered Analysis
+
+PitchPerfect leverages three cutting-edge AI technologies to enhance user experience:
+
+1. Gemini AI: Provides intelligent feedback on speech clarity, body language, and delivery.
+
+2. DeepFace: Analyzes facial expressions in real time to assess emotional reactions.
+
+3. Whisper AI: Transcribes the recorded video into text for review and refinement.
+
 Video Recording & Transcription:
 Users can easily record their video using their webcam. Once the recording is stopped, the platform automatically converts the video into text, allowing users to review and refine their speech or introduction.
 
@@ -51,18 +61,18 @@ Clone the repository:
 git clone https://github.com/R-umaria/HackCanada.git
 
 ## Usage
-Recording:
+How to use:
 
-Click Start Recording to begin capturing your video.
+1. Click 'Start Recording' to begin capturing your video.
 Your video is automatically converted to text after stopping the recording.
-Feedback:
 
+2.Feedback:
 Click Get Feedback to view AI-generated feedback on your performance.
-Facial Expression Visualization:
 
+3. Facial Expression Visualization:
 The live camera uses DeepFace to detect and display your facial reactions during the recording.
-Retry:
 
+4. Retry:
 Use the Retry button to clear the current session and start over.
 
 ## Technology Stack
@@ -71,3 +81,9 @@ Webcam & Media Recording: Browser's getUserMedia and MediaRecorder APIs
 AI & Feedback: Gemini AI for feedback generation
 Facial Expression Analysis: DeepFace for face detection and reaction visualization
 Transcription: (Placeholder) Video-to-text conversion functionality
+
+## Video Tutorial
+
+<iframe width="853" height="480" src="https://www.youtube.com/embed/WgCfUdOB6Sg" title="PitchPerfect - Hack Canada" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+Click the image above or watch the tutorial here(https://www.youtube.com/watch?v=WgCfUdOB6Sg) to learn how to use PitchPerfect effectively.
