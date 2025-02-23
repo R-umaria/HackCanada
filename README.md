@@ -1,5 +1,5 @@
 # PitchPerfect 
-This project is designed to empower individuals who are preparing for their first interview, public speech, or even everyday social interactions. The platform allows users to record a video of themselves—be it a self-introduction, an approach, or a presentation—and then processes the video to extract valuable insights. Here’s how it works:
+This project is designed to empower individuals who are preparing for their first impression, public speech, or even everyday social interactions. The platform allows users to record a video of themselves—be it a self-introduction, an approach, or a presentation—and then processes the video to extract valuable insights. Here’s how it works:
 
 Video Recording & Transcription:
 Users can easily record their video using their webcam. Once the recording is stopped, the platform automatically converts the video into text, allowing users to review and refine their speech or introduction.
