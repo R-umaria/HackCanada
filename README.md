@@ -1,5 +1,10 @@
 # PitchPerfect 
-This project is designed to empower individuals who are preparing for their first impression, public speech, or even everyday social interactions. The platform allows users to record a video of themselves—be it a self-introduction, an approach, or a presentation—and then processes the video to extract valuable insights. Here’s how it works:
+This project is designed to empower individuals who are preparing for their first impression, public speech, or even everyday social interactions. The platform allows users to record a video of themselves—be it a self-introduction, an approach, or a presentation—and then processes the video to extract valuable insights. 
+
+## Preview
+![image](https://github.com/user-attachments/assets/0f293cac-77a9-4efa-a043-007a5cdb1d87)
+
+## How it works:
 
 Video Recording & Transcription:
 Users can easily record their video using their webcam. Once the recording is stopped, the platform automatically converts the video into text, allowing users to review and refine their speech or introduction.
@@ -15,7 +20,7 @@ The platform offers a modern, responsive interface built with Tailwind CSS. Cust
 
 Whether you're gearing up for an important interview, preparing for a speech, or simply looking to boost your social confidence, this platform provides a comprehensive toolset to help you hone your presentation skills and make a lasting impression.
 
-# Features
+## Features
 Video Recording:
 Capture your self-introduction or interaction using your webcam.
 
@@ -37,14 +42,14 @@ Built with Tailwind CSS, featuring custom UI colors for a modern look.
 Retry Option:
 Easily reset your recording session with a dedicated retry button.
 
-# Logo
+## Logo
 ![213140795](https://github.com/user-attachments/assets/2870bdaf-d953-4de8-a949-ddcb4db3f021)
 
-# Installation
+## Installation
 Clone the repository:
 git clone https://github.com/R-umaria/HackCanada.git
 
-# Usage
+## Usage
 Recording:
 
 Click Start Recording to begin capturing your video.
@@ -59,7 +64,7 @@ Retry:
 
 Use the Retry button to clear the current session and start over.
 
-# Technology Stack
+## Technology Stack
 Frontend: HTML, Tailwind CSS, and JavaScript
 Webcam & Media Recording: Browser's getUserMedia and MediaRecorder APIs
 AI & Feedback: Gemini AI for feedback generation
