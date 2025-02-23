@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Camera & Transcription</title>
+    <title>Mock Mate</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto p-8">
         <!-- Title and Logo Section -->
         <div class="flex items-center mb-4 bg-gray-700 p-4 rounded-lg">
-            <!-- Logo -->
-            <img src="https://via.placeholder.com/40" alt="Logo" class="mr-4">
-            <!-- Title -->
-            <h1 class="text-3xl font-bold">Live Camera & Transcription</h1>
+            <!-- <img src="images/logo.png" alt="Logo" style="width: 100px; height: 100px;" class="mr-4"> -->
+            <h1 class="text-3xl font-bold">Mate Mock</h1>
         </div>
 
         <!-- Welcome Note with Animation -->
@@ -162,6 +160,11 @@
             }
             isRecording = !isRecording;
         });
+        // Show feedback on button click
+        getFeedbackButton.addEventListener('click', () => {
+            feedbackBox.classList.remove('hidden');
+            feedbackBox.textContent = "Here’s your feedback! 🎯 (Simulated feedback for now)";
+        });
 
         // Retry recording
         retryButton.addEventListener('click', () => {
