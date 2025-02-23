@@ -20,13 +20,18 @@ def home():
 @main.route("/ask-gemini", methods=["POST"])
 def gemini_api():
     data = request.get_json()
-    prompt = data.get("prompt", "")
+    # sentiments = data.get("sentiments")
+    # speech = data.get("speech")
+    message = data.get("message")
 
-    if not prompt:
-        return jsonify({"error": "Prompt is required"}), 400
+    # if not speech:
+    #     return jsonify({"error": "Speech is required"}), 400
+    
+    # if not sentiments:
+    #     return jsonify({"error": "Sentiments are required"}), 400
 
-    response = ask_gemini(prompt)
-    return jsonify({"response": response})
+    response = ask_gemini(message)
+    return jsonify(response)
 
 @main.route('/analyze_video', methods=['POST'])
 def analyze_video():
@@ -67,8 +72,8 @@ def analyze_video():
     cap.release()
 
     # Clean up the temporary video file
-    if os.path.exists(video_path):
-        os.remove(video_path)
+    # if os.path.exists(video_path):
+    #     os.remove(video_path)
 
     # Return the count of detected emotions
     return jsonify(Counter(emotions))
