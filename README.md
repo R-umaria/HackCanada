@@ -7,7 +7,7 @@ This project is designed to empower individuals who are preparing for their firs
 
 ## How it works:
 
-# AI-Powered Analysis
+### AI-Powered Analysis
 
 PitchPerfect leverages three cutting-edge AI technologies to enhance user experience:
 
@@ -84,6 +84,6 @@ Transcription: (Placeholder) Video-to-text conversion functionality
 
 ## Video Tutorial
 
-<iframe width="853" height="480" src="https://www.youtube.com/embed/WgCfUdOB6Sg" title="PitchPerfect - Hack Canada" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![Watch the Tutorial](https://img.youtube.com/vi/WgCfUdOB6Sg/0.jpg)](https://www.youtube.com/watch?v=WgCfUdOB6Sg)
 
-Click the image above or watch the tutorial here(https://www.youtube.com/watch?v=WgCfUdOB6Sg) to learn how to use PitchPerfect effectively.
+Click the image above or [watch the tutorial here](https://www.youtube.com/watch?v=WgCfUdOB6Sg) to learn how to use PitchPerfect effectively.
