@@ -2,7 +2,7 @@ import os
 from google import genai
 
 # Configure Gemini API
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "Failed to get secret key")
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 def ask_gemini(message):
