@@ -11,7 +11,7 @@ Facial Expression Analysis:
 Using DeepFace technology, the live camera continuously monitors and detects facial expressions during the recording. This feature visualizes the user's emotional reactions in real time, providing insights into how their expressions might be perceived by an interviewer or audience.
 
 Interactive User Interface:
-The platform offers a modern, responsive interface built with Tailwind CSS. Custom colors (#46484d for primary elements and #ff5e5e for accents) create a sleek and professional look. Users benefit from a typewriter-style welcome animation, clear call-to-action buttons, and intuitive controls, such as a dedicated retry option to restart the recording process.
+The platform offers a modern, responsive interface built with Tailwind CSS. Custom colors  create a sleek and professional look. Users benefit from a typewriter-style welcome animation, clear call-to-action buttons, and intuitive controls, such as a dedicated retry option to restart the recording process.
 
 Whether you're gearing up for an important interview, preparing for a speech, or simply looking to boost your social confidence, this platform provides a comprehensive toolset to help you hone your presentation skills and make a lasting impression.
 
@@ -32,10 +32,13 @@ Typewriter Animation:
 Engaging welcome messages to guide users as they enter the platform.
 
 Responsive UI:
-Built with Tailwind CSS, featuring custom UI colors (#46484d and #ff5e5e) for a modern look.
+Built with Tailwind CSS, featuring custom UI colors for a modern look.
 
 Retry Option:
 Easily reset your recording session with a dedicated retry button.
+
+# Logo
+![213140795](https://github.com/user-attachments/assets/2870bdaf-d953-4de8-a949-ddcb4db3f021)
 
 # Installation
 Clone the repository:
